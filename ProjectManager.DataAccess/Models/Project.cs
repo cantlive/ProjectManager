@@ -1,0 +1,40 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace ProjectManager.DataAccess.Models
+{
+    public class Project
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(255)]
+        public string CustomerCompany { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(255)]
+        public string ContractorCompany { get; set; } = string.Empty;
+
+        [Required]
+        public DateTime StartDate { get; set; }
+
+        [Required]
+        public DateTime EndDate { get; set; }
+
+        [Required]
+        public int Priority { get; set; }
+
+        [Required]
+        public Guid ProjectManagerId { get; set; }
+
+        [ForeignKey("ProjectManagerId")]
+        public Employee? ProjectManager { get; set; }
+
+        public List<Employee> Employees { get; set; } = new List<Employee>();
+    }
+}
