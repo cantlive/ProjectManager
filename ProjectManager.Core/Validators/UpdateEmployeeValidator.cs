@@ -3,7 +3,7 @@ using ProjectManager.Core.Models;
 
 namespace ProjectManager.Core.Validators
 {
-    public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeDto>
+    internal class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeDto>
     {
         public UpdateEmployeeValidator()
         {

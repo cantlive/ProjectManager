@@ -11,6 +11,6 @@ namespace ProjectManager.Core.Interfaces
         Task UpdateProjectAsync(UpdateProjectDto projectDto);
         Task DeleteProjectByIdAsync(Guid id);
         Task AddEmployeeToProjectAsync(Guid projectId, Employee employee);
-        Task RemoveEmployeeFromProjectAsync(Guid projectId, Guid employeeId);
+        Task RemoveEmployeeFromProjectAsync(Guid projectId, Employee employee);
     }
 }

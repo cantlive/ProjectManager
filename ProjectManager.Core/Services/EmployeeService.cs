@@ -7,7 +7,7 @@ using ProjectManager.DataAccess.Models;
 
 namespace ProjectManager.Core.Services
 {
-    public class EmployeeService : IEmployeeService
+    internal class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly CreateEmployeeValidator _createValidator = new CreateEmployeeValidator();

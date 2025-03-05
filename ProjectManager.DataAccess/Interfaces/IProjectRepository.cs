@@ -8,8 +8,8 @@ namespace ProjectManager.DataAccess.Interfaces
         Task<Project> GetProjectByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<List<Project>> GetProjectsAsync(CancellationToken cancellationToken = default);
         Task UpdateProjectAsync(Project project);
-        Task DeleteProjectByIdAsync(Guid id);
-        Task AddEmployeeAsync(Guid projectId, Employee employee);
-        Task DeleteEmployeeByIdAsync(Guid projectId, Guid employeeId);
+        Task DeleteProjectAsync(Project project);
+        Task AddEmployeeAsync(Project project, Employee employee);
+        Task DeleteEmployeeAsync(Project project, Employee employee);
     }
 }

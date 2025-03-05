@@ -1,13 +1,17 @@
-﻿using ProjectManager.Core.Interfaces;
+﻿using ProjectManager.Core.Exceptions;
+using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
+using ProjectManager.Core.Validators;
 using ProjectManager.DataAccess.Interfaces;
 using ProjectManager.DataAccess.Models;
 
 namespace ProjectManager.Core.Services
 {
-    public class ProjectService : IProjectService
+    internal class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly CreateProjectValidator _createValidator = new CreateProjectValidator();
+        private readonly UpdateProjectValidator _updateValidator = new UpdateProjectValidator();
 
         public ProjectService(IProjectRepository projectRepository)
         {
@@ -16,6 +20,8 @@ namespace ProjectManager.Core.Services
 
         public async Task<Guid> CreateProjectAsync(CreateProjectDto projectDto, CancellationToken cancellationToken = default)
         {
+            await _createValidator.ValidateAndThrowAsync(projectDto);
+
             var project = new Project
             {
                 Id = Guid.NewGuid(),
@@ -44,32 +50,48 @@ namespace ProjectManager.Core.Services
 
         public async Task UpdateProjectAsync(UpdateProjectDto projectDto)
         {
-            var project = new Project
-            {
-                Id = projectDto.Id,
-                Name = projectDto.Name,
-                CustomerCompany = projectDto.CustomerCompany,
-                ContractorCompany = projectDto.ContractorCompany,
-                StartDate = projectDto.StartDate,
-                EndDate = projectDto.EndDate,
-                Priority = projectDto.Priority
-            };
+            await _updateValidator.ValidateAndThrowAsync(projectDto);
+
+            var project = await GetProjectOrThrowAsync(projectDto.Id);
+
+            project.Id = projectDto.Id;
+            project.Name = projectDto.Name;
+            project.CustomerCompany = projectDto.CustomerCompany;
+            project.ContractorCompany = projectDto.ContractorCompany;
+            project.StartDate = projectDto.StartDate;
+            project.EndDate = projectDto.EndDate;
+            project.Priority = projectDto.Priority;
+            project.ProjectManager = projectDto.ProjectManager;
+            project.ProjectManagerId = projectDto.ProjectManager.Id;
+
             await _projectRepository.UpdateProjectAsync(project);
         }
 
         public async Task DeleteProjectByIdAsync(Guid id)
         {
-            await _projectRepository.DeleteProjectByIdAsync(id);
+            var project = await GetProjectOrThrowAsync(id);
+            await _projectRepository.DeleteProjectAsync(project);
         }
 
         public async Task AddEmployeeToProjectAsync(Guid projectId, Employee employee)
         {
-            await _projectRepository.AddEmployeeAsync(projectId, employee);
+            var project = await GetProjectOrThrowAsync(projectId);
+            await _projectRepository.AddEmployeeAsync(project, employee);
         }
 
-        public async Task RemoveEmployeeFromProjectAsync(Guid projectId, Guid employeeId)
+        public async Task RemoveEmployeeFromProjectAsync(Guid projectId, Employee employee)
         {
-            await _projectRepository.DeleteEmployeeByIdAsync(projectId, employeeId);
+            var project = await GetProjectOrThrowAsync(projectId);
+            await _projectRepository.DeleteEmployeeAsync(project, employee);
+        }
+
+        private async Task<Project> GetProjectOrThrowAsync(Guid id)
+        {
+            var project = await GetProjectByIdAsync(id);
+            if (project == null)
+                throw new NotFoundException(nameof(Project), id);
+
+            return project;
         }
     }
 }
