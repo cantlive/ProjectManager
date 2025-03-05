@@ -33,7 +33,7 @@ namespace ProjectManager.DataAccess.Models
         public Guid ProjectManagerId { get; set; }
 
         [ForeignKey("ProjectManagerId")]
-        public Employee? ProjectManager { get; set; }
+        public Employee ProjectManager { get; set; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
     }

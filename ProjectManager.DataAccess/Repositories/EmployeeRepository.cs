@@ -30,20 +30,16 @@ namespace ProjectManager.DataAccess.Repositories
             return await _context.Employees.ToListAsync(cancellationToken);
         }
 
-        public async Task UpdateEmployeeAsync(Employee employee)
+        public async Task UpdateAsync(Employee employee)
         {
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteEmployeeByIdAsync(Guid id)
+        public async Task DeleteAsync(Employee employee)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
-            {
-                _context.Employees.Remove(employee);
-                await _context.SaveChangesAsync();
-            }
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ProjectManager.DataAccess.Models
         public string LastName { get; set; } = string.Empty;
 
         [MaxLength(50)]
-        public string? MiddleName { get; set; }
+        public string MiddleName { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
