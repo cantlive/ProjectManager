@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectManager.DataAccess.Models
 {
@@ -23,6 +24,7 @@ namespace ProjectManager.DataAccess.Models
         [MaxLength(255)]
         public string Email { get; set; } = string.Empty;
 
+        [NotMapped]
         public List<Project> Projects { get; set; } = new List<Project>();
     }
 }

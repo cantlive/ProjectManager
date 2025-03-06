@@ -1,5 +1,8 @@
+using ProjectManager.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDataAccess(builder.Configuration);
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
