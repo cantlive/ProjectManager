@@ -10,14 +10,14 @@ namespace ProjectManager.DataAccess
     {
         public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-
             string connectionString = configuration["DbConnection"];
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlite(connectionString);
             });
+
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
 
             return services;
         }

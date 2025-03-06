@@ -1,8 +1,10 @@
+using ProjectManager.Core;
 using ProjectManager.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddBusinessLogic();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -18,8 +20,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
