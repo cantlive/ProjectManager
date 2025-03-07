@@ -12,8 +12,8 @@
             <div class="container">
                 <a href="@Url.Action("Index", "Home")" class="logo">ProjectManager</a>
                 <ul class="nav-links">
-                    <li><a href="@Url.Action("Index", "Project")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Project" ? "active" : "")">Projects</a></li>
-                    <li><a href="@Url.Action("Index", "Employee")" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Employee" ? "active" : "")">Employees</a></li>
+                    <li><a href="@Url.Action("Index", "Project")">Projects</a></li>
+                    <li><a href="@Url.Action("Index", "Employee")">Employees</a></li>
                 </ul>
             </div>
         </nav>
