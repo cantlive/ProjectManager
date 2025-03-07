@@ -4,7 +4,7 @@
 
 <h2>Projects</h2>
 
-<a href="@Url.Action("Create")">Create New Project</a>
+<a href="@Url.Action("Create")" class="btn btn-primary create-btn">Create New Project</a>
 
 <table>
     <tr>
@@ -22,8 +22,8 @@
             <td>@project.ContractorCompany</td>
             <td>@project.Priority</td>
             <td>
-                <a href="@Url.Action("Edit", new { id = project.Id })">Edit</a>
-                <a href="@Url.Action("Delete", new { id = project.Id })">Delete</a>
+                <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-secondary">Edit</a>
+                <a href="@Url.Action("Delete", new { id = project.Id })" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }
