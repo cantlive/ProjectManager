@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
-using ProjectManager.DataAccess.Models;
-using ProjectManager.Web.ViewModels;
+using ProjectManager.UI.ViewModels;
 
-namespace ProjectManager.Web.Controllers
+namespace ProjectManager.UI.Controllers
 {
     public class ProjectController : Controller
     {

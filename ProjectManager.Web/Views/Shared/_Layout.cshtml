@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device=width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project Manager</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="@Url.Action("Index", "Home") class="logo">ProjectManager</a>
+                <ul class="nav-links">
+                    <li><a href="@Url.Action("Index", "Project")>Projects</a></li>
+                    <li><a href="@Url.Action("Index", "Employee")>Employees</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Project Manager</p>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

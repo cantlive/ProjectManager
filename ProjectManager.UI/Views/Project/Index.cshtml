@@ -1,0 +1,30 @@
+﻿@using ProjectManager.Core.Models
+@using ProjectManager.UI.ViewModels
+@model ProjectListViewModel
+
+<h2>Projects</h2>
+
+<a href="@Url.Action("Create")">Create New Project</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Customer Company</th>
+        <th>Contractor Company</th>
+        <th>Priority</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var project in Model.Projects)
+    {
+        <tr>
+            <td>@project.Name</td>
+            <td>@project.CustomerCompany</td>
+            <td>@project.ContractorCompany</td>
+            <td>@project.Priority</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = project.Id })">Edit</a>
+                <a href="@Url.Action("Delete", new { id = project.Id })">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

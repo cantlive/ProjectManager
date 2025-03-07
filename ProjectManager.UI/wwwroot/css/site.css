@@ -13,19 +13,19 @@ body {
     justify-content: center;
 }
 
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 1200px;
-}
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        max-width: 1200px;
+    }
 
-.navbar .logo {
-    color: #fff;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-decoration: none;
-}
+    .navbar .logo {
+        color: #fff;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-decoration: none;
+    }
 
 .nav-links {
     list-style: none;
@@ -34,19 +34,19 @@ body {
     display: flex;
 }
 
-.nav-links li {
-    margin: 0 10px;
-}
+    .nav-links li {
+        margin: 0 10px;
+    }
 
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1em;
-}
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1em;
+    }
 
-.nav-links a:hover {
-    text-decoration: underline;
-}
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
 
 .content {
     width: 80%;
