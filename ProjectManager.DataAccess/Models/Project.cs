@@ -29,6 +29,13 @@ namespace ProjectManager.DataAccess.Models
         [Required]
         public int Priority { get; set; }
 
+        [NotMapped]
+        public ProjectPriority PriorityEnum
+        {
+            get => (ProjectPriority)Priority;
+            set => Priority = (int)value;
+        }
+
         [Required]
         public Guid ProjectManagerId { get; set; }
 
