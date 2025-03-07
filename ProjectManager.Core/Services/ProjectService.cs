@@ -30,7 +30,7 @@ namespace ProjectManager.Core.Services
                 ContractorCompany = projectDto.ContractorCompany,
                 StartDate = projectDto.StartDate,
                 EndDate = projectDto.EndDate,
-                Priority = projectDto.PriorityEnum,
+                PriorityEnum = projectDto.Priority,
                 ProjectManagerId = projectDto.ProjectManager.Id,
                 ProjectManager = projectDto.ProjectManager,
                 Employees = projectDto.Employees
