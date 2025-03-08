@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.UI.ViewModels;
@@ -65,6 +66,17 @@ namespace ProjectManager.UI.Controllers
         {
             await _employeeService.DeleteEmployeeByIdAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet("Search")]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return BadRequest("Search term is required.");
+
+            var employees = await _employeeService.SearchAsync(searchTerm);
+
+            return Ok(employees);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace ProjectManager.DataAccess.Interfaces
         Task<List<Employee>> GetEmployeesAsync(CancellationToken cancellationToken = default);
         Task UpdateAsync(Employee employee);
         Task DeleteAsync(Employee employee);
+        Task<List<SearchedEmployee>> SearchAsync(string searchTerm);
     }
 }

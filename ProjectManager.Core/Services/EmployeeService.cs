@@ -68,5 +68,13 @@ namespace ProjectManager.Core.Services
 
             await _employeeRepository.DeleteAsync(employee);
         }
+
+        public async Task<List<SearchedEmployee>> SearchAsync(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                throw new ArgumentNullException(nameof(searchTerm));
+
+            return await _employeeRepository.SearchAsync(searchTerm);
+        }
     }
 }

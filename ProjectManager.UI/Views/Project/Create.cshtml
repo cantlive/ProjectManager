@@ -11,16 +11,6 @@
         </div>
 
         <div class="form-group">
-            <label>Customer Company</label>
-            <input asp-for="CustomerCompany" class="form-control" required />
-        </div>
-
-        <div class="form-group">
-            <label>Contractor Company</label>
-            <input asp-for="ContractorCompany" class="form-control" required />
-        </div>
-
-        <div class="form-group">
             <label>Start Date</label>
             <input asp-for="StartDate" type="date" class="form-control" required />
         </div>
@@ -37,6 +27,72 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label>Customer Company</label>
+            <input asp-for="CustomerCompany" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Contractor Company</label>
+            <input asp-for="ContractorCompany" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="ProjectManagerId">Project Manager</label>
+            <select id="ProjectManagerId" name="ProjectManagerId" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="Employees">Employees</label>
+            <select id="Employees" name="Employees" class="form-control" multiple></select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Employees').select2({
+                placeholder: 'Search for employees',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '@Url.Action("Search", "Employee")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { searchTerm: params.term };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return { id: item.id, text: item.fullName };
+                            })
+                        };
+                    }
+                }
+            });
+
+            $('#ProjectManagerId').select2({
+                placeholder: 'Search for project manager',
+                minimumInputLength: 1,
+                ajax: {
+                    url: '@Url.Action("Search", "Employee")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { searchTerm: params.term };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return { id: item.id, text: item.fullName };
+                            })
+                        };
+                    }
+                }
+            });
+        });
+    </script>
+}

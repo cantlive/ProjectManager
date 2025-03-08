@@ -41,5 +41,17 @@ namespace ProjectManager.DataAccess.Repositories
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<SearchedEmployee>> SearchAsync(string searchTerm)
+        {
+            return await _context.Employees
+                .Where(e => e.FirstName.Contains(searchTerm) || e.LastName.Contains(searchTerm))
+                .Select(e => new SearchedEmployee
+                {
+                    Id = e.Id,
+                    FullName = e.FirstName + " " + e.LastName
+                })
+                .ToListAsync();
+        }
     }
 }
