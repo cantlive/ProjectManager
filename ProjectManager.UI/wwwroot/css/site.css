@@ -1,9 +1,16 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
     color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
@@ -76,7 +83,7 @@ table {
 }
 
 th, td {
-    padding: 12px;
+    padding: 6px 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
@@ -85,6 +92,16 @@ th {
     background-color: #007bff;
     color: white;
     text-transform: uppercase;
+}
+
+th.actions-column, td.actions-column {
+    width: 120px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+tr {
+    height: 35px;
 }
 
 tr:hover {
@@ -96,7 +113,7 @@ footer {
     padding: 15px;
     background-color: #007bff;
     color: white;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
 .form-container {
@@ -127,16 +144,19 @@ footer {
     color: #555;
 }
 
-.form-control {
+.form-control,
+.custom-select {
     width: 100%;
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ddd;
     border-radius: 5px;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
-.form-control:focus {
+.form-control:focus,
+.custom-select:focus {
     border-color: #007bff;
     outline: none;
 }
@@ -176,20 +196,56 @@ button, .btn {
     background-color: #0056b3;
 }
 
-.btn-secondary {
-    background-color: #ffc107;
-    color: black;
+button:hover {
+    background-color: #c82333;
 }
 
-.btn-secondary:hover {
-    background-color: #e0a800;
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
 }
 
-.btn-danger {
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: #17a2b8;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.edit-btn:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+.delete-btn {
     background-color: #dc3545;
     color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: background 0.3s ease, transform 0.1s ease;
 }
 
-button, .btn-danger:hover {
+.delete-btn:hover {
     background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.custom-select option {
+    padding: 10px;
+    background: white;
+    color: #333;
+}
+
+.custom-select option:disabled {
+    color: #aaa;
 }

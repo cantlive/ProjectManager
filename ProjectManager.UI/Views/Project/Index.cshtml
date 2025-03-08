@@ -12,7 +12,7 @@
         <th>Customer Company</th>
         <th>Contractor Company</th>
         <th>Priority</th>
-        <th>Actions</th>
+        <th class="actions-column">Actions</th>
     </tr>
     @foreach (var project in Model.Projects)
     {
@@ -21,8 +21,8 @@
             <td>@project.CustomerCompany</td>
             <td>@project.ContractorCompany</td>
             <td>@project.Priority</td>
-            <td>
-                <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-secondary">Edit</a>
+            <td class="action-buttons actions-column">
+                <a href="@Url.Action("Edit", new { id = project.Id })" class="btn edit-btn">Edit</a>
                 <a href="@Url.Action("Delete", new { id = project.Id })" class="btn btn-danger">Delete</a>
             </td>
         </tr>

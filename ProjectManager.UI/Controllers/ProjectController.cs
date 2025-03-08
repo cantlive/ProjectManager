@@ -29,7 +29,7 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            //if (!ModelState.IsValid) return View(dto);
 
             await _projectService.CreateProjectAsync(dto);
             return RedirectToAction(nameof(Index));

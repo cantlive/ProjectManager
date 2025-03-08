@@ -1,0 +1,29 @@
+﻿@model ProjectManager.Core.Models.CreateEmployeeDto
+
+<div class="form-container">
+    <h2>Create Employee</h2>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label>First Name</label>
+            <input asp-for="FirstName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Last Name</label>
+            <input asp-for="LastName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Middle Name</label>
+            <input asp-for="MiddleName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input asp-for="Email" type="email" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

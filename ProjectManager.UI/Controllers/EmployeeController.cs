@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
+using ProjectManager.UI.ViewModels;
 
 namespace ProjectManager.UI.Controllers
 {
@@ -16,7 +17,8 @@ namespace ProjectManager.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var employees = await _employeeService.GetEmployeesAsync();
-            return View(employees);
+            var viewModel = new EmployeeListViewModel { Employees = employees };
+            return View(viewModel);
         }
 
         public IActionResult Create()
