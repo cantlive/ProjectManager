@@ -17,4 +17,10 @@
     <ProjectReference Include="..\ProjectManager.Core\ProjectManager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\images\intro-projects.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

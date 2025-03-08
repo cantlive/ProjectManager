@@ -45,6 +45,7 @@ namespace ProjectManager.UI.Controllers
                 Id = employee.Id,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
+                MiddleName = employee.MiddleName,
                 Email = employee.Email
             };
 

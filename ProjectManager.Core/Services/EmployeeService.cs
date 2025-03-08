@@ -27,6 +27,7 @@ namespace ProjectManager.Core.Services
                 Id = Guid.NewGuid(),
                 FirstName = employeeDto.FirstName,
                 LastName = employeeDto.LastName,
+                MiddleName = employeeDto.MiddleName,
                 Email = employeeDto.Email
             };
             return await _employeeRepository.CreateEmployeeAsync(employee, cancellationToken);
