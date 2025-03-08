@@ -45,5 +45,49 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#ProjectManagerId').select2({
+                placeholder: 'Search for project manager',
+                minimumInputLength: 1,
+                ajax: {
+                    url: '@Url.Action("Search", "Employee")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { searchTerm: params.term };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return { id: item.id, text: item.fullName };
+                            })
+                        };
+                    }
+                }
+            });
+
+            $('#Employees').select2({
+                placeholder: 'Search for employees',
+                minimumInputLength: 1,
+                ajax: {
+                    url: '@Url.Action("Search", "Employee")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { searchTerm: params.term };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return { id: item.id, text: item.fullName };
+                            })
+                        };
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

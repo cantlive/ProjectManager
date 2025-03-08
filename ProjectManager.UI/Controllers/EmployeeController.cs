@@ -30,8 +30,6 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateEmployeeDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
-
             await _employeeService.CreateEmployeeAsync(dto);
             return RedirectToAction(nameof(Index));
         }
@@ -39,7 +37,6 @@ namespace ProjectManager.UI.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var employee = await _employeeService.GetEmployeeByIdAsync(id);
-            if (employee == null) return NotFound();
 
             var updateDto = new UpdateEmployeeDto
             {
@@ -56,8 +53,6 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateEmployeeDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
-
             await _employeeService.UpdateEmployeeAsync(dto);
             return RedirectToAction(nameof(Index));
         }

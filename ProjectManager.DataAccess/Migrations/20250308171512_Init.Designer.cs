@@ -11,7 +11,7 @@ using ProjectManager.DataAccess;
 namespace ProjectManager.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250307055128_Init")]
+    [Migration("20250308171512_Init")]
     partial class Init
     {
         /// <inheritdoc />

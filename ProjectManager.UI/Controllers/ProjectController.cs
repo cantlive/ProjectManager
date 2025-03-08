@@ -29,8 +29,6 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectDto dto)
         {
-            //if (!ModelState.IsValid) return View(dto);
-
             await _projectService.CreateProjectAsync(dto);
             return RedirectToAction(nameof(Index));
         }
@@ -38,7 +36,6 @@ namespace ProjectManager.UI.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
-            if (project == null) return NotFound();
 
             var updateDto = new UpdateProjectDto
             {
@@ -48,7 +45,9 @@ namespace ProjectManager.UI.Controllers
                 ContractorCompany = project.ContractorCompany,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
-                Priority = project.Priority
+                Priority = project.Priority,
+                ProjectManagerId = project.ProjectManager.Id,
+                EmployeeIds = project.Employees.Select(x => x.Id).ToList()
             };
 
             return View(updateDto);
@@ -57,8 +56,6 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateProjectDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
-
             await _projectService.UpdateProjectAsync(dto);
             return RedirectToAction(nameof(Index));
         }

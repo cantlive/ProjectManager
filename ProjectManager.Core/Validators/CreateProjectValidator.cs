@@ -10,7 +10,7 @@ namespace ProjectManager.Core.Validators
             RuleFor(p => p.Name).NotEmpty().WithMessage("Name is required");
             RuleFor(p => p.CustomerCompany).NotEmpty().WithMessage("CustomerCompany is required");
             RuleFor(p => p.ContractorCompany).NotEmpty().WithMessage("ContractorCompany is required");
-            RuleFor(p => p.ProjectManager).NotNull().WithMessage("Project manager is required");
+            RuleFor(p => p.ProjectManagerId).NotNull().WithMessage("Project manager is required");
             RuleFor(p => p.StartDate).LessThanOrEqualTo(p => p.EndDate).WithMessage("Start date cannot be after end date");
         }
 

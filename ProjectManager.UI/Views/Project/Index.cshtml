@@ -9,21 +9,38 @@
 <table>
     <tr>
         <th>Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Priority</th>
         <th>Customer Company</th>
         <th>Contractor Company</th>
-        <th>Priority</th>
+        <th>Project Manager</th>
+        <th>Employees</th>
         <th class="actions-column">Actions</th>
     </tr>
     @foreach (var project in Model.Projects)
     {
         <tr>
             <td>@project.Name</td>
+            <td>@project.StartDate.ToShortDateString()</td>
+            <td>@project.EndDate.ToShortDateString()</td>
+            <td>@project.Priority.ToString()</td>
             <td>@project.CustomerCompany</td>
             <td>@project.ContractorCompany</td>
-            <td>@project.Priority</td>
-            <td class="action-buttons actions-column">
-                <a href="@Url.Action("Edit", new { id = project.Id })" class="btn edit-btn">Edit</a>
-                <a href="@Url.Action("Delete", new { id = project.Id })" class="btn btn-danger">Delete</a>
+            <td>@project.ProjectManager?.FullName</td>
+            <td>
+                <ul>
+                    @foreach (var employee in project.Employees)
+                    {
+                        <li>@employee.FullName</li>
+                    }
+                </ul>
+            </td>
+            <td class="actions-column">
+                <div class="action-buttons">
+                    <a href="@Url.Action("Edit", new { id = project.Id })" class="btn edit-btn">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = project.Id })" class="btn delete-btn">Delete</a>
+                </div>
             </td>
         </tr>
     }

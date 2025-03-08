@@ -10,7 +10,7 @@ namespace ProjectManager.Core.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public ProjectPriority Priority { get; set; }
-        public Employee ProjectManager { get; set; }
-        public List<Employee> Employees { get; set; }
+        public Guid ProjectManagerId { get; set; }
+        public List<Guid> EmployeeIds { get; set; }
     }
 }

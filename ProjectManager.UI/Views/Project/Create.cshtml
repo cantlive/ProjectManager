@@ -39,60 +39,14 @@
 
         <div class="form-group">
             <label for="ProjectManagerId">Project Manager</label>
-            <select id="ProjectManagerId" name="ProjectManagerId" class="form-control"></select>
+            <select id="ProjectManagerId" name="ProjectManagerId" class="form-control" required></select>
         </div>
 
         <div class="form-group">
             <label for="Employees">Employees</label>
-            <select id="Employees" name="Employees" class="form-control" multiple></select>
+            <select id="Employees" name="EmployeeIds" class="form-control" multiple required></select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="create-project-btn">Create</button>
     </form>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#Employees').select2({
-                placeholder: 'Search for employees',
-                minimumInputLength: 2,
-                ajax: {
-                    url: '@Url.Action("Search", "Employee")',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return { searchTerm: params.term };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return { id: item.id, text: item.fullName };
-                            })
-                        };
-                    }
-                }
-            });
-
-            $('#ProjectManagerId').select2({
-                placeholder: 'Search for project manager',
-                minimumInputLength: 1,
-                ajax: {
-                    url: '@Url.Action("Search", "Employee")',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return { searchTerm: params.term };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return { id: item.id, text: item.fullName };
-                            })
-                        };
-                    }
-                }
-            });
-        });
-    </script>
-}

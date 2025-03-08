@@ -10,12 +10,14 @@ namespace ProjectManager.Core.Services
     internal class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly CreateProjectValidator _createValidator = new CreateProjectValidator();
         private readonly UpdateProjectValidator _updateValidator = new UpdateProjectValidator();
 
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectService(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
         {
             _projectRepository = projectRepository;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<Guid> CreateProjectAsync(CreateProjectDto projectDto, CancellationToken cancellationToken = default)
@@ -31,10 +33,11 @@ namespace ProjectManager.Core.Services
                 StartDate = projectDto.StartDate,
                 EndDate = projectDto.EndDate,
                 PriorityEnum = projectDto.Priority,
-                ProjectManagerId = projectDto.ProjectManager.Id,
-                ProjectManager = projectDto.ProjectManager,
-                Employees = projectDto.Employees
+                ProjectManagerId = projectDto.ProjectManagerId,
+                ProjectManager = await _employeeRepository.GetEmployeeByIdAsync(projectDto.ProjectManagerId),
+                Employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds)
             };
+
             return await _projectRepository.CreateProjectAsync(project, cancellationToken);
         }
 
@@ -61,8 +64,9 @@ namespace ProjectManager.Core.Services
             project.StartDate = projectDto.StartDate;
             project.EndDate = projectDto.EndDate;
             project.Priority = projectDto.Priority;
-            project.ProjectManager = projectDto.ProjectManager;
-            project.ProjectManagerId = projectDto.ProjectManager.Id;
+            project.ProjectManager = await _employeeRepository.GetEmployeeByIdAsync(projectDto.ProjectManagerId);
+            project.ProjectManagerId = projectDto.ProjectManagerId;
+            project.Employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds);
 
             await _projectRepository.UpdateProjectAsync(project);
         }

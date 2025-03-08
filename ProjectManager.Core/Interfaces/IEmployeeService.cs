@@ -10,6 +10,6 @@ namespace ProjectManager.Core.Interfaces
         Task<List<Employee>> GetEmployeesAsync(CancellationToken cancellationToken = default);
         Task UpdateEmployeeAsync(UpdateEmployeeDto employeeDto);
         Task DeleteEmployeeByIdAsync(Guid id);
-        Task<List<SearchedEmployee>> SearchAsync(string searchTerm);
+        Task<List<Employee>> SearchAsync(string searchTerm);
     }
 }

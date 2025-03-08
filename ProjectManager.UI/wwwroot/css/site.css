@@ -90,11 +90,14 @@ button, .btn {
     padding: 8px 12px;
     font-size: 1em;
     text-decoration: none;
-    border-radius: 5px;
     transition: background 0.3s ease;
+    width: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
-.create-project-btn, .add-employee-btn {
+.create-project-btn, .create-employee-btn {
     padding: 12px 20px;
     font-size: 1.1em;
     font-weight: bold;
@@ -105,7 +108,18 @@ button, .btn {
     color: white;
 }
 
-.create-project-btn:hover, .add-employee-btn:hover {
+.save-project-btn, .save-employee-btn {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    background-color: #28a745;
+    color: white;
+}
+
+.create-project-btn:hover, .create-employee-btn:hover {
     background-color: #218838;
 }
 
@@ -148,6 +162,7 @@ button, .btn {
 
 table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background: #fff;
@@ -155,26 +170,39 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th {
     padding: 6px 10px;
     border: 1px solid #ddd;
     text-align: left;
+    vertical-align: top;
+}
+
+td {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 
 th {
     background-color: #007bff;
     color: white;
     text-transform: uppercase;
+    vertical-align: middle;
 }
 
 th.actions-column, td.actions-column {
-    width: 120px;
     text-align: center;
     white-space: nowrap;
+    vertical-align: middle;
+    height: 100%;
 }
 
 tr {
-    height: 35px;
+    height: 100%;
 }
 
 tr:hover {
@@ -299,7 +327,8 @@ footer {
 
 .action-buttons {
     display: flex;
-    gap: 8px;
+    gap: 5px;
+    align-items: center;
     justify-content: center;
 }
 

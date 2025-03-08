@@ -19,12 +19,12 @@ namespace ProjectManager.DataAccess.Models
         [MaxLength(50)]
         public string MiddleName { get; set; } = string.Empty;
 
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
+
         [Required]
         [EmailAddress]
         [MaxLength(255)]
         public string Email { get; set; } = string.Empty;
-
-        [NotMapped]
-        public List<Project> Projects { get; set; } = new List<Project>();
     }
 }

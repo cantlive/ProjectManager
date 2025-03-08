@@ -30,6 +30,13 @@ namespace ProjectManager.DataAccess.Repositories
             return await _context.Employees.ToListAsync(cancellationToken);
         }
 
+        public async Task<List<Employee>> GetEmployeesByIdsAsync(List<Guid> employeeIds, CancellationToken cancellationToken = default)
+        {
+            return await _context.Employees
+                .Where(e => employeeIds.Contains(e.Id))
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(Employee employee)
         {
             _context.Employees.Update(employee);
@@ -42,15 +49,10 @@ namespace ProjectManager.DataAccess.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<SearchedEmployee>> SearchAsync(string searchTerm)
+        public async Task<List<Employee>> SearchAsync(string searchTerm)
         {
             return await _context.Employees
-                .Where(e => e.FirstName.Contains(searchTerm) || e.LastName.Contains(searchTerm))
-                .Select(e => new SearchedEmployee
-                {
-                    Id = e.Id,
-                    FullName = e.FirstName + " " + e.LastName
-                })
+                .Where(e => e.FirstName.ToUpper().Contains(searchTerm.ToUpper()) || e.LastName.ToUpper().Contains(searchTerm.ToUpper()))
                 .ToListAsync();
         }
     }
