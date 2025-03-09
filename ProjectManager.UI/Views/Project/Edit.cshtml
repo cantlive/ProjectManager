@@ -40,12 +40,14 @@
 
     <div class="form-group">
         <label for="ProjectManagerId">Project Manager</label>
-        <select id="ProjectManagerId" name="ProjectManagerId" class="form-control" required></select>
+        <select id="ProjectManagerId" asp-for="ProjectManagerId" asp-items="ViewBag.ProjectManagers" class="form-control" required>
+            <option value="" disabled>Select Project Manager</option>
+        </select>
     </div>
 
     <div class="form-group">
         <label for="Employees">Employees</label>
-        <select id="Employees" name="EmployeeIds" class="form-control" multiple required></select>
+        <select id="Employees" asp-for="EmployeeIds" asp-items="ViewBag.Employees" class="form-control" multiple required></select>
     </div>
 
     <button type="submit" class="save-project-btn">Save</button>

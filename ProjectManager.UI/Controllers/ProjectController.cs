@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
+using ProjectManager.DataAccess.Models;
 using ProjectManager.UI.ViewModels;
 
 namespace ProjectManager.UI.Controllers
@@ -49,6 +51,28 @@ namespace ProjectManager.UI.Controllers
                 ProjectManagerId = project.ProjectManager.Id,
                 EmployeeIds = project.Employees.Select(x => x.Id).ToList()
             };
+
+            var selectedProjectManager = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Value = project.ProjectManager.Id.ToString(),
+                    Text = project.ProjectManager.FullName,
+                    Selected = true
+                }
+            };
+
+            var selectedEmployees = project.Employees
+                .Select(e => new SelectListItem
+                {
+                    Value = e.Id.ToString(),
+                    Text = e.FullName,
+                    Selected = project.Employees.Any(emp => emp.Id == e.Id)
+                })
+                .ToList();
+
+            ViewBag.ProjectManagers = selectedProjectManager;
+            ViewBag.Employees = selectedEmployees;
 
             return View(updateDto);
         }

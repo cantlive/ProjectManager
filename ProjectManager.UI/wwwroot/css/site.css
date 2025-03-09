@@ -4,6 +4,7 @@
 
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -151,18 +152,17 @@ button, .btn {
 ========================== */
 
 .content {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
     background: #fff;
-    padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 90%;
+    margin: 5px auto;
 }
 
 table {
     width: 100%;
-    max-width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background: #fff;
@@ -170,14 +170,7 @@ table {
     overflow: hidden;
 }
 
-th {
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-    vertical-align: top;
-}
-
-td {
+td, th {
     padding: 6px 10px;
     border: 1px solid #ddd;
     text-align: left;
@@ -185,6 +178,7 @@ td {
     word-wrap: break-word;
     word-break: break-word;
     white-space: normal;
+    max-width: 300px;
 }
 
 th {
@@ -194,15 +188,18 @@ th {
     vertical-align: middle;
 }
 
-th.actions-column, td.actions-column {
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    height: 100%;
+td ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    vertical-align: top;
 }
 
-tr {
-    height: 100%;
+th.actions-column, td.actions-column {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 tr:hover {
@@ -257,12 +254,6 @@ footer {
     font-size: 1.5em;
     color: #007bff;
     margin-right: 10px;
-}
-
-.intro-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
 }
 
 .quick-links {
@@ -330,6 +321,7 @@ footer {
     gap: 5px;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .edit-btn, .delete-btn {

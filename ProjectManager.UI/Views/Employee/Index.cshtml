@@ -21,9 +21,11 @@
             <td>@employee.LastName</td>
             <td>@employee.MiddleName</td>
             <td>@employee.Email</td>
-            <td class="action-buttons actions-column">
-                <a href="@Url.Action("Edit", new { id = employee.Id })" class="btn edit-btn">Edit</a>
-                <a href="@Url.Action("Delete", new { id = employee.Id })" class="btn delete-btn">Delete</a>
+            <td class="actions-column">
+                <div class="action-buttons">
+                    <a href="@Url.Action("Edit", new { id = employee.Id })" class="btn edit-btn">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = employee.Id })" class="btn delete-btn">Delete</a>
+                </div>
             </td>
         </tr>
     }
