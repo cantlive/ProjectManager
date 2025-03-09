@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.DataAccess.Models;
+using ProjectManager.UI.Models;
 using ProjectManager.UI.ViewModels;
+using System.Diagnostics;
 
 namespace ProjectManager.UI.Controllers
 {
@@ -133,6 +135,12 @@ namespace ProjectManager.UI.Controllers
         {
             await _projectService.DeleteProjectByIdAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

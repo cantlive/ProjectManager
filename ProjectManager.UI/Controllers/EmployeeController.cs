@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
+using ProjectManager.UI.Models;
 using ProjectManager.UI.ViewModels;
+using System.Diagnostics;
 
 namespace ProjectManager.UI.Controllers
 {
@@ -71,6 +73,12 @@ namespace ProjectManager.UI.Controllers
             var employees = await _employeeService.SearchAsync(searchTerm);
 
             return Ok(employees);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
