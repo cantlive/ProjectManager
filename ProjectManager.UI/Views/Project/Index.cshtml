@@ -56,6 +56,7 @@
         <th>Contractor Company</th>
         <th>Project Manager</th>
         <th>Employees</th>
+        <th>Files</th>
         <th class="actions-column">Actions</th>
     </tr>
     @foreach (var project in Model.Projects)
@@ -72,7 +73,22 @@
                 <ul>
                     @foreach (var employee in project.Employees)
                     {
-                        <li>@employee.FullName</li>
+                        <li>@employee.Employee.FullName</li>
+                    }
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    @if (project.FilePaths != null && project.FilePaths.Any())
+                    {
+                        foreach (var filePath in project.FilePaths)
+                        {
+                            <li class="file-name" title="@filePath">@System.IO.Path.GetFileName(filePath)</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>No files uploaded</li>
                     }
                 </ul>
             </td>

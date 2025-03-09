@@ -11,7 +11,7 @@ using ProjectManager.DataAccess;
 namespace ProjectManager.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250308171512_Init")]
+    [Migration("20250309095254_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -46,15 +46,10 @@ namespace ProjectManager.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("Employees");
                 });
@@ -76,6 +71,9 @@ namespace ProjectManager.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.PrimitiveCollection<string>("FilePaths")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -102,11 +100,19 @@ namespace ProjectManager.DataAccess.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("ProjectManager.DataAccess.Models.Employee", b =>
+            modelBuilder.Entity("ProjectManager.DataAccess.Models.ProjectEmployee", b =>
                 {
-                    b.HasOne("ProjectManager.DataAccess.Models.Project", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("ProjectId");
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ProjectId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("ProjectEmployee");
                 });
 
             modelBuilder.Entity("ProjectManager.DataAccess.Models.Project", b =>
@@ -118,6 +124,30 @@ namespace ProjectManager.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("ProjectManager");
+                });
+
+            modelBuilder.Entity("ProjectManager.DataAccess.Models.ProjectEmployee", b =>
+                {
+                    b.HasOne("ProjectManager.DataAccess.Models.Employee", "Employee")
+                        .WithMany("ProjectEmployees")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectManager.DataAccess.Models.Project", "Project")
+                        .WithMany("Employees")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("ProjectManager.DataAccess.Models.Employee", b =>
+                {
+                    b.Navigation("ProjectEmployees");
                 });
 
             modelBuilder.Entity("ProjectManager.DataAccess.Models.Project", b =>

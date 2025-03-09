@@ -46,6 +46,53 @@
                 }
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileUploadArea = document.getElementById('file-upload-area');
+            const fileInput = document.getElementById('file-upload');
+            const fileList = document.getElementById('file-list');
+
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            fileUploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const files = e.target.files;
+                handleFiles(files);
+            });
+
+            function handleFiles(files) {
+                fileList.innerHTML = '';
+
+                const dataTransfer = new DataTransfer();
+
+                for (const file of files) {
+                    dataTransfer.items.add(file);
+
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                    fileList.appendChild(listItem);
+                }
+
+                fileInput.files = dataTransfer.files;
+            }
+        });
     </script>
 
     <script>

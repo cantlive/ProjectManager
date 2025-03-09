@@ -19,8 +19,7 @@ namespace ProjectManager.DataAccess.Migrations
                     FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     MiddleName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +37,8 @@ namespace ProjectManager.DataAccess.Migrations
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Priority = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectManagerId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    ProjectManagerId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FilePaths = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,6 +51,30 @@ namespace ProjectManager.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProjectEmployee",
+                columns: table => new
+                {
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectEmployee", x => new { x.ProjectId, x.EmployeeId });
+                    table.ForeignKey(
+                        name: "FK_ProjectEmployee_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectEmployee_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_Id",
                 table: "Employees",
@@ -58,9 +82,9 @@ namespace ProjectManager.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_ProjectId",
-                table: "Employees",
-                column: "ProjectId");
+                name: "IX_ProjectEmployee_EmployeeId",
+                table: "ProjectEmployee",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_Id",
@@ -72,21 +96,13 @@ namespace ProjectManager.DataAccess.Migrations
                 name: "IX_Projects_ProjectManagerId",
                 table: "Projects",
                 column: "ProjectManagerId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Employees_Projects_ProjectId",
-                table: "Employees",
-                column: "ProjectId",
-                principalTable: "Projects",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Employees_Projects_ProjectId",
-                table: "Employees");
+            migrationBuilder.DropTable(
+                name: "ProjectEmployee");
 
             migrationBuilder.DropTable(
                 name: "Projects");

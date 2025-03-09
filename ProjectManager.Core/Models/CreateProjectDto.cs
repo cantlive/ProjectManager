@@ -1,4 +1,5 @@
-﻿using ProjectManager.DataAccess.Models;
+﻿using Microsoft.AspNetCore.Http;
+using ProjectManager.DataAccess.Models;
 
 namespace ProjectManager.Core.Models
 {
@@ -12,5 +13,7 @@ namespace ProjectManager.Core.Models
         public ProjectPriority Priority { get; set; }
         public Guid ProjectManagerId { get; set; }
         public List<Guid> EmployeeIds { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public List<string> FilePaths { get; set; }
     }
 }

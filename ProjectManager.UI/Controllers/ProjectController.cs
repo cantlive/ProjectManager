@@ -4,7 +4,6 @@ using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.DataAccess.Models;
 using ProjectManager.UI.ViewModels;
-using System.Globalization;
 
 namespace ProjectManager.UI.Controllers
 {
@@ -62,6 +61,21 @@ namespace ProjectManager.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectDto dto)
         {
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                dto.FilePaths = new List<string>();
+
+                foreach (var file in dto.Files)
+                {
+                    var filePath = Path.Combine("wwwroot/uploads", file.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    dto.FilePaths.Add(filePath);
+                }
+            }
+
             await _projectService.CreateProjectAsync(dto);
             return RedirectToAction(nameof(Index));
         }
@@ -80,7 +94,7 @@ namespace ProjectManager.UI.Controllers
                 EndDate = project.EndDate,
                 Priority = project.Priority,
                 ProjectManagerId = project.ProjectManager.Id,
-                EmployeeIds = project.Employees.Select(x => x.Id).ToList()
+                EmployeeIds = project.Employees.Select(x => x.EmployeeId).ToList()
             };
 
             var selectedProjectManager = new List<SelectListItem>()
@@ -96,9 +110,9 @@ namespace ProjectManager.UI.Controllers
             var selectedEmployees = project.Employees
                 .Select(e => new SelectListItem
                 {
-                    Value = e.Id.ToString(),
-                    Text = e.FullName,
-                    Selected = project.Employees.Any(emp => emp.Id == e.Id)
+                    Value = e.EmployeeId.ToString(),
+                    Text = e.Employee.FullName,
+                    Selected = project.Employees.Any(emp => emp.EmployeeId == e.EmployeeId)
                 })
                 .ToList();
 

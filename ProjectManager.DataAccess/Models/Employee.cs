@@ -26,5 +26,7 @@ namespace ProjectManager.DataAccess.Models
         [EmailAddress]
         [MaxLength(255)]
         public string Email { get; set; } = string.Empty;
+
+        public List<ProjectEmployee> ProjectEmployees { get; set; } = new List<ProjectEmployee>();
     }
 }

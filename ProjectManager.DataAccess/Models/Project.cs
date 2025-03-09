@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ProjectManager.DataAccess.Models
 {
@@ -42,6 +43,9 @@ namespace ProjectManager.DataAccess.Models
         [ForeignKey("ProjectManagerId")]
         public Employee ProjectManager { get; set; }
 
-        public List<Employee> Employees { get; set; } = new List<Employee>();
+        public List<ProjectEmployee> Employees { get; set; } = new List<ProjectEmployee>();
+
+        
+        public List<string> FilePaths { get; set; } = new List<string>();
     }
 }

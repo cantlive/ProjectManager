@@ -24,6 +24,7 @@ namespace ProjectManager.DataAccess.Repositories
         {
             return await _context.Projects.Include(p => p.ProjectManager)
                 .Include(p => p.Employees)
+                    .ThenInclude(pe => pe.Employee)
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
@@ -31,6 +32,7 @@ namespace ProjectManager.DataAccess.Repositories
         {
             return await _context.Projects.Include(p => p.ProjectManager)
                 .Include(p => p.Employees)
+                    .ThenInclude(pe => pe.Employee)
                 .ToListAsync(cancellationToken);
         }
 
@@ -48,13 +50,14 @@ namespace ProjectManager.DataAccess.Repositories
 
         public async Task AddEmployeeAsync(Project project, Employee employee)
         {
-            project.Employees.Add(employee);
+            project.Employees.Add(new ProjectEmployee { EmployeeId = employee.Id });
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteEmployeeAsync(Project project, Employee employee)
         {
-            project.Employees.Remove(employee);
+            var projectEmployee = project.Employees.FirstOrDefault(e => e.EmployeeId == employee.Id);
+            project.Employees.Remove(projectEmployee);
             await _context.SaveChangesAsync();
         }
     }

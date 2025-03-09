@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.UI.ViewModels;

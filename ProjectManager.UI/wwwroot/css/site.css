@@ -185,7 +185,7 @@ table {
     overflow: hidden;
 }
 
-td, th {
+td {
     padding: 6px 10px;
     border: 1px solid #ddd;
     text-align: left;
@@ -193,10 +193,17 @@ td, th {
     word-wrap: break-word;
     word-break: break-word;
     white-space: normal;
-    max-width: 300px;
+    max-width: 250px;
 }
 
 th {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    max-width: 250px;
     background-color: #007bff;
     color: white;
     text-transform: uppercase;
@@ -425,4 +432,33 @@ footer {
 
 .custom-select option:disabled {
     color: #aaa;
+}
+
+/* ==========================
+   10. File select
+========================== */
+
+.file-upload-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.file-upload-area.dragover {
+    border-color: #000;
+}
+
+.file-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.file-list li {
+    margin: 5px 0;
+}
+
+.file-name {
+    color: blue;
+    cursor: default;
 }

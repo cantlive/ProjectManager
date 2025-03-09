@@ -23,6 +23,7 @@ namespace ProjectManager.Core.Services
         public async Task<Guid> CreateProjectAsync(CreateProjectDto projectDto, CancellationToken cancellationToken = default)
         {
             await _createValidator.ValidateAndThrowAsync(projectDto);
+            var employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds);
 
             var project = new Project
             {
@@ -35,7 +36,8 @@ namespace ProjectManager.Core.Services
                 PriorityEnum = projectDto.Priority,
                 ProjectManagerId = projectDto.ProjectManagerId,
                 ProjectManager = await _employeeRepository.GetEmployeeByIdAsync(projectDto.ProjectManagerId),
-                Employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds)
+                Employees = employees.Select(e => new ProjectEmployee { EmployeeId = e.Id }).ToList(),
+                FilePaths = projectDto.FilePaths
             };
 
             return await _projectRepository.CreateProjectAsync(project, cancellationToken);
@@ -56,6 +58,7 @@ namespace ProjectManager.Core.Services
             await _updateValidator.ValidateAndThrowAsync(projectDto);
 
             var project = await GetProjectOrThrowAsync(projectDto.Id);
+            var employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds);
 
             project.Id = projectDto.Id;
             project.Name = projectDto.Name;
@@ -66,7 +69,7 @@ namespace ProjectManager.Core.Services
             project.Priority = projectDto.Priority;
             project.ProjectManager = await _employeeRepository.GetEmployeeByIdAsync(projectDto.ProjectManagerId);
             project.ProjectManagerId = projectDto.ProjectManagerId;
-            project.Employees = await _employeeRepository.GetEmployeesByIdsAsync(projectDto.EmployeeIds);
+            project.Employees = employees.Select(e => new ProjectEmployee { EmployeeId = e.Id }).ToList();
 
             await _projectRepository.UpdateProjectAsync(project);
         }
