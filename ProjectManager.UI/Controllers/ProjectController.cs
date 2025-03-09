@@ -4,6 +4,7 @@ using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.DataAccess.Models;
 using ProjectManager.UI.ViewModels;
+using System.Globalization;
 
 namespace ProjectManager.UI.Controllers
 {
@@ -16,10 +17,40 @@ namespace ProjectManager.UI.Controllers
             _projectService = projectService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string projectName, DateTime? startDateFrom, DateTime? startDateTo, ProjectPriority? priority, string sortBy)
         {
             var projects = await _projectService.GetProjectsAsync();
-            var viewModel = new ProjectListViewModel { Projects = projects };
+
+            if (!string.IsNullOrWhiteSpace(projectName))
+                projects = projects.Where(p => p.Name == projectName).ToList();
+
+            if (startDateFrom.HasValue)
+                projects = projects.Where(p => p.StartDate >= startDateFrom.Value).ToList();
+
+            if (startDateTo.HasValue)
+                projects = projects.Where(p => p.StartDate <= startDateTo.Value).ToList();
+
+            if (priority.HasValue)
+                projects = projects.Where(p => p.Priority == (int)priority.Value).ToList();
+
+            projects = sortBy switch
+            {
+                "Name" => projects.OrderBy(p => p.Name).ToList(),
+                "StartDate" => projects.OrderBy(p => p.StartDate).ToList(),
+                "Priority" => projects.OrderBy(p => p.Priority).ToList(),
+                _ => projects.OrderBy(p => p.Name).ToList(),
+            };
+
+            var viewModel = new ProjectListViewModel
+            {
+                Projects = projects,
+                ProjectName = projectName,
+                StartDateFrom = startDateFrom,
+                StartDateTo = startDateTo,
+                Priority = priority,
+                SortBy = sortBy
+            };
+
             return View(viewModel);
         }
 

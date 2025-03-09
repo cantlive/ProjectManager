@@ -7,6 +7,45 @@
 
 <a href="@Url.Action("Create")" class="create-project-btn">Create New Project</a>
 
+<form method="get">
+    <div class="filter">
+        <label for="projectName">Name:</label>
+        <input name="projectName" value="@Model.ProjectName" />
+
+        <label for="startDateFrom">Start Date From:</label>
+        <input type="date" name="startDateFrom" value="@Model.StartDateFrom?.ToString("yyyy-MM-dd")" />
+
+        <label for="startDateTo">Start Date To:</label>
+        <input type="date" name="startDateTo" value="@Model.StartDateTo?.ToString("yyyy-MM-dd")" />
+
+        <label for="priority">Priority:</label>
+        <select name="priority">
+            <option value="">All</option>
+            @foreach (var priority in Enum.GetValues(typeof(ProjectPriority)).Cast<ProjectPriority>())
+            {
+                <option value="@priority" selected="@(priority == Model.Priority)">
+                    @Enum.GetName(typeof(ProjectPriority), priority)
+                </option>
+            }
+        </select>
+
+        <button class="filter-project-btn" type="submit">Filter</button>
+    </div>
+</form>
+
+<form method="get">
+    <div class="sort">
+        <label for="sortBy">Sort By:</label>
+        <select name="sortBy">
+            <option value="Name" selected="@(Model.SortBy == "Name")">Name</option>
+            <option value="StartDate" selected="@(Model.SortBy == "StartDate")">Start Date</option>
+            <option value="Priority" selected="@(Model.SortBy == "Priority")">Priority</option>
+        </select>
+
+        <button class="sort-project-btn" type="submit">Sort</button>
+    </div>
+</form>
+
 <table>
     <tr>
         <th>Name</th>
