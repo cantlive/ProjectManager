@@ -1,4 +1,6 @@
-﻿namespace ProjectManager.Core.Models
+﻿using ProjectManager.DataAccess.Models;
+
+namespace ProjectManager.Core.Models
 {
     public class UpdateProjectDto
     {
@@ -11,5 +13,23 @@
         public int Priority { get; set; }
         public Guid ProjectManagerId { get; set; }
         public List<Guid> EmployeeIds { get; set; }
+
+        public UpdateProjectDto()
+        {
+            
+        }
+
+        public UpdateProjectDto(Project project)
+        {
+            Id = project.Id;
+            Name = project.Name;
+            CustomerCompany = project.CustomerCompany;
+            ContractorCompany = project.ContractorCompany;
+            StartDate = project.StartDate;
+            EndDate = project.EndDate;
+            Priority = project.Priority;
+            ProjectManagerId = project.ProjectManager.Id;
+            EmployeeIds = project.Employees.Select(x => x.EmployeeId).ToList();
+        }
     }
 }

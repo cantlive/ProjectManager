@@ -1,4 +1,6 @@
-﻿namespace ProjectManager.Core.Models
+﻿using ProjectManager.DataAccess.Models;
+
+namespace ProjectManager.Core.Models
 {
     public class UpdateEmployeeDto
     {
@@ -7,5 +9,19 @@
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public string Email { get; set; }
+
+        public UpdateEmployeeDto()
+        {
+            
+        }
+
+        public UpdateEmployeeDto(Employee employee)
+        {
+            Id = employee.Id;
+            FirstName = employee.FirstName;
+            LastName = employee.LastName;
+            MiddleName = employee.MiddleName;
+            Email = employee.Email;
+        }
     }
 }

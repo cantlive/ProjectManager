@@ -8,6 +8,8 @@ namespace ProjectManager.DataAccess.Repositories
     {
         private readonly AppDbContext _context;
 
+        public DbSet<Project> Projects => _context.Projects;
+
         public ProjectRepository(AppDbContext context)
         {
             _context = context;

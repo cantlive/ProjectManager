@@ -1,9 +1,11 @@
-﻿using ProjectManager.DataAccess.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectManager.DataAccess.Models;
 
 namespace ProjectManager.DataAccess.Interfaces
 {
     public interface IProjectRepository
     {
+        DbSet<Project> Projects { get; }
         Task<Guid> CreateProjectAsync(Project project, CancellationToken cancellationToken = default);
         Task<Project> GetProjectByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<List<Project>> GetProjectsAsync(CancellationToken cancellationToken = default);

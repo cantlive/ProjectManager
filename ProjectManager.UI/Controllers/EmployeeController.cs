@@ -19,6 +19,7 @@ namespace ProjectManager.UI.Controllers
         {
             var employees = await _employeeService.GetEmployeesAsync();
             var employeeListDto = new EmployeeListDto { Employees = employees };
+
             return View(employeeListDto);
         }
 
@@ -37,15 +38,7 @@ namespace ProjectManager.UI.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var employee = await _employeeService.GetEmployeeByIdAsync(id);
-
-            var updateDto = new UpdateEmployeeDto
-            {
-                Id = employee.Id,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                MiddleName = employee.MiddleName,
-                Email = employee.Email
-            };
+            var updateDto = new UpdateEmployeeDto(employee);
 
             return View(updateDto);
         }
@@ -66,11 +59,7 @@ namespace ProjectManager.UI.Controllers
         [HttpGet("Search")]
         public async Task<IActionResult> Search(string searchTerm)
         {
-            if (string.IsNullOrWhiteSpace(searchTerm))
-                return BadRequest("Search term is required.");
-
             var employees = await _employeeService.SearchAsync(searchTerm);
-
             return Ok(employees);
         }
 
