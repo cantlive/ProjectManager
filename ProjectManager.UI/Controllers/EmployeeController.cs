@@ -2,7 +2,6 @@
 using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.UI.Models;
-using ProjectManager.UI.ViewModels;
 using System.Diagnostics;
 
 namespace ProjectManager.UI.Controllers
@@ -19,8 +18,8 @@ namespace ProjectManager.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var employees = await _employeeService.GetEmployeesAsync();
-            var viewModel = new EmployeeListViewModel { Employees = employees };
-            return View(viewModel);
+            var employeeListDto = new EmployeeListDto { Employees = employees };
+            return View(employeeListDto);
         }
 
         public IActionResult Create()

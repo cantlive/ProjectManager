@@ -4,7 +4,6 @@ using ProjectManager.Core.Interfaces;
 using ProjectManager.Core.Models;
 using ProjectManager.DataAccess.Models;
 using ProjectManager.UI.Models;
-using ProjectManager.UI.ViewModels;
 using System.Diagnostics;
 
 namespace ProjectManager.UI.Controllers
@@ -42,7 +41,7 @@ namespace ProjectManager.UI.Controllers
                 _ => projects.OrderBy(p => p.Name).ToList(),
             };
 
-            var viewModel = new ProjectListViewModel
+            var projectListDto = new ProjectListDto
             {
                 Projects = projects,
                 ProjectName = projectName,
@@ -52,7 +51,7 @@ namespace ProjectManager.UI.Controllers
                 SortBy = sortBy
             };
 
-            return View(viewModel);
+            return View(projectListDto);
         }
 
         public IActionResult Create()

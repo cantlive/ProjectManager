@@ -1,8 +1,8 @@
 ﻿using ProjectManager.DataAccess.Models;
 
-namespace ProjectManager.UI.ViewModels
+namespace ProjectManager.Core.Models
 {
-    public class EmployeeListViewModel
+    public class EmployeeListDto
     {
         public List<Employee> Employees { get; set; }
     }

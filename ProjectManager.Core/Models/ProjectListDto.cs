@@ -1,8 +1,8 @@
 ﻿using ProjectManager.DataAccess.Models;
 
-namespace ProjectManager.UI.ViewModels
+namespace ProjectManager.Core.Models
 {
-    public class ProjectListViewModel
+    public class ProjectListDto
     {
         public string ProjectName { get; set; }
         public DateTime? StartDateFrom { get; set; }
