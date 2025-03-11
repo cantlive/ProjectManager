@@ -35,7 +35,6 @@ namespace ProjectManager.Core.Services
                 EndDate = projectDto.EndDate,
                 PriorityEnum = projectDto.Priority,
                 ProjectManagerId = projectDto.ProjectManagerId,
-                ProjectManager = await _employeeRepository.GetEmployeeByIdAsync(projectDto.ProjectManagerId),
                 Employees = employees.Select(e => new ProjectEmployee { EmployeeId = e.Id }).ToList(),
                 FilePaths = projectDto.FilePaths
             };
