@@ -2,6 +2,26 @@
 @using ProjectManager.DataAccess.Models
 @model ProjectListDto
 
+@functions {
+    string GetSortUrl(string sortBy)
+    {
+        var queryParams = new Dictionary<string, string>
+        {
+            { "projectName", Model.Filter.ProjectName },
+            { "startDateFrom", Model.Filter.StartDateFrom?.ToString("yyyy-MM-dd") },
+            { "startDateTo", Model.Filter.StartDateTo?.ToString("yyyy-MM-dd") },
+            { "priority", Model.Filter.Priority?.ToString() },
+            { "sortBy", sortBy }
+        };
+
+        var queryString = string.Join("&", queryParams
+            .Where(p => !string.IsNullOrEmpty(p.Value))
+            .Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value)}"));
+
+        return Url.Action("Index") + "?" + queryString;
+    }
+}
+
 <h2>Projects</h2>
 
 <a href="@Url.Action("Create")" class="create-project-btn">Create New Project</a>
@@ -28,29 +48,42 @@
             }
         </select>
 
+        <input type="hidden" name="sortBy" value="@Model.SortBy" />
+
         <button class="filter-project-btn" type="submit">Filter</button>
-    </div>
-</form>
-
-<form method="get">
-    <div class="sort">
-        <label for="sortBy">Sort By:</label>
-        <select name="sortBy">
-            <option value="Name" selected="@(Model.SortBy == "Name")">Name</option>
-            <option value="StartDate" selected="@(Model.SortBy == "StartDate")">Start Date</option>
-            <option value="Priority" selected="@(Model.SortBy == "Priority")">Priority</option>
-        </select>
-
-        <button class="sort-project-btn" type="submit">Sort</button>
     </div>
 </form>
 
 <table>
     <tr>
-        <th>Name</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Priority</th>
+        <th>
+            Name
+            <ul class="sort-buttons">
+                <li><a href="@GetSortUrl("Name")">▲</a></li>
+                <li><a href="@GetSortUrl("Name_desc")">▼</a></li>
+            </ul>
+        </th>
+        <th>
+            Start Date
+            <ul class="sort-buttons">
+                <li><a href="@GetSortUrl("StartDate")">▲</a></li>
+                <li><a href="@GetSortUrl("StartDate_desc")">▼</a></li>
+            </ul>
+        </th>
+        <th>
+            End Date
+            <ul class="sort-buttons">
+                <li><a href="@GetSortUrl("EndDate")">▲</a></li>
+                <li><a href="@GetSortUrl("EndDate_desc")">▼</a></li>
+            </ul>
+        </th>
+        <th>
+            Priority
+            <ul class="sort-buttons">
+                <li><a href="@GetSortUrl("Priority")">▲</a></li>
+                <li><a href="@GetSortUrl("Priority_desc")">▼</a></li>
+            </ul>
+        </th>
         <th>Customer Company</th>
         <th>Contractor Company</th>
         <th>Project Manager</th>
@@ -58,6 +91,7 @@
         <th>Files</th>
         <th class="actions-column">Actions</th>
     </tr>
+
     @foreach (var project in Model.Projects)
     {
         <tr>
@@ -100,3 +134,17 @@
         </tr>
     }
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sortButtons = document.querySelectorAll('.sort-buttons a');
+
+        sortButtons.forEach(link => {
+            if (window.location.href === link.href) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    });
+</script>

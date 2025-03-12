@@ -77,8 +77,11 @@ namespace ProjectManager.Core.Services
             queryProjects = sortBy switch
             {
                 "Name" => queryProjects.OrderBy(p => p.Name),
+                "Name_desc" => queryProjects.OrderByDescending(p => p.Name),
                 "StartDate" => queryProjects.OrderBy(p => p.StartDate),
+                "StartDate_desc" => queryProjects.OrderByDescending(p => p.StartDate),
                 "Priority" => queryProjects.OrderBy(p => p.Priority),
+                "Priority_desc" => queryProjects.OrderByDescending(p => p.Priority),
                 _ => queryProjects.OrderBy(p => p.Name),
             };
 
