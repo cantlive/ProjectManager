@@ -420,6 +420,10 @@ footer {
     transform: scale(1.05);
 }
 
+.sort-buttons {
+    list-style: none;
+}
+
 .sort-buttons a {
     color: blue;
     text-decoration: none;
@@ -438,7 +442,7 @@ footer {
 
 .sort-buttons .active {
     background-color: #66b3ff;
-    color: red;
+    color: blue;
     text-decoration: none;
     font-size: 1.1em;
     font-weight: bold;
